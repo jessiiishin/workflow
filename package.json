@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
+    "tinymce": "^7.9.0",
     "videojs-youtube": "^3.0.1"
   },
   "devDependencies": {
