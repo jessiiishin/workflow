@@ -21,7 +21,12 @@ workspace.addEventListener('dragover', (event) => {
 
 workspace.addEventListener('drop', (event) => {
     const dummy = document.createElement('div');
+    const rect = workspace.getBoundingClientRect();
+    dummy.classList.add('widget');
     dummy.textContent = event.dataTransfer.getData('text/plain');
+
+    dummy.style.left = (event.clientX - rect.left) + 'px';
+    dummy.style.top = (event.clientY - rect.top) + 'px';
+
     workspace.appendChild(dummy);
 });
-
