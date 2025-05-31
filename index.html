@@ -10,10 +10,16 @@
   <body>
     <h1>💖 main page!</h1>
 
-    <li><a href="todo.html" class="menu-btn todo-btn">todo list</a></li>
-    <li><a href="timer.html" class="menu-btn timer-btn">timer</a></li>
-    <li><a href="notes.html" class="menu-btn notes-btn">notes</a></li>
-    <li><a href="settings.html" class="menu-btn settings-btn">settings</a></li>
-  
+    <div id="sidebar">
+      <h2>widgets</h2>
+      <button id="timerBtn" class="widget-btn timer-btn" draggable="true">timer</button>
+      <button id="todoBtn" class="widget-btn todo-btn" draggable="true">todo</button>
+      <button id="noteBtn" class="widget-btn note-btn" draggable="true">note</button>
+    </div>
+
+    <div id="workspace" style="width: 100%; height: 500px; border: 2px dashed #aaa;">
+      workspace here
+    </div>
+    
   </body>
 </html>

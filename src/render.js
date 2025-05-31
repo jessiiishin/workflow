@@ -1,6 +1,10 @@
 // buttons
-// const musicBtn = document.getElementById("musicBtn");
 const timerBtn = document.getElementById("timerBtn");
-const notesBtn = document.getElementById("notesBtn");
-const settingsBtn = document.getElementById("settingsBtn");
+const notesBtn = document.getElementById("noteBtn");
+const settingsBtn = document.getElementById("todoBtn");
 
+const workspace = document.getElementById('workspace');
+
+workspace.addEventListener("dragover", (event) => {
+    event.preventDefault();
+})
