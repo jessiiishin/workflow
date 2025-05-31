@@ -1,10 +1,27 @@
 // buttons
 const timerBtn = document.getElementById("timerBtn");
-const notesBtn = document.getElementById("noteBtn");
-const settingsBtn = document.getElementById("todoBtn");
+const noteBtn = document.getElementById("noteBtn");
+const todoBtn = document.getElementById("todoBtn");
 
 const workspace = document.getElementById('workspace');
 
-workspace.addEventListener("dragover", (event) => {
+prepButton(timerBtn);
+prepButton(noteBtn);
+prepButton(todoBtn);
+
+function prepButton(wbutton) {
+    wbutton.addEventListener('dragstart', (event) => {
+        const type = event.dataTransfer.setData('text/plain', wbutton.textContent);
+    });
+}
+
+workspace.addEventListener('dragover', (event) => {
     event.preventDefault();
-})
+});
+
+workspace.addEventListener('drop', (event) => {
+    const dummy = document.createElement('div');
+    dummy.textContent = event.dataTransfer.getData('text/plain');
+    workspace.appendChild(dummy);
+});
+
