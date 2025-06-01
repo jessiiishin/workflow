@@ -1,6 +1,5 @@
 let remaining;
 let countdown;
-let ogTime;
 let isPaused = false;
 
 document.getElementById('pauseBtn').disabled = true;

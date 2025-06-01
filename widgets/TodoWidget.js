@@ -1,5 +1,5 @@
-class TodoWidget {
-    constructor () {
-        
-    }
+class TodoWidget extends Widget {
+    
+
+    
 }
