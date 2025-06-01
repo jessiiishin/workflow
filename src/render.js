@@ -1,3 +1,7 @@
+import { TimerWidget } from '../widgets/TimerWidget.js';
+import { TodoWidget } from '../widgets/TodoWidget.js';
+import { NoteWidget } from '../widgets/NoteWidget.js';
+
 // buttons
 const timerBtn = document.getElementById("timerBtn");
 const noteBtn = document.getElementById("noteBtn");
@@ -22,6 +26,7 @@ workspace.addEventListener('dragover', (event) => {
 workspace.addEventListener('drop', (event) => {
     const rect = workspace.getBoundingClientRect();
     const type = event.dataTransfer.getData('text/plain');
+    
     let newWidget;
 
     switch (type) {

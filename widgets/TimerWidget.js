@@ -1,11 +1,13 @@
-class TimerWidget extends Widget {
+import { Widget } from './Widget.js';
+
+export class TimerWidget extends Widget {
     constructor () {
         super('Timer', 'timer-widget');
         this.remaining = 0;
         this.countdown;
         this.isPaused = false;
 
-        this.setUpTimerUI();
+        this.setupTimerUI();
     }
 
     setupTimerUI() {

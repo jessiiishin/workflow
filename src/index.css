@@ -15,10 +15,9 @@ body {
 
 .widget {
   position: absolute;
-  width: 150;
-  height: 150;
+  width: 150px;
+  height: 150px;
   background: #f0f0f0;
   border: 1px solid #aaa;
   padding: 10px;
 }
-

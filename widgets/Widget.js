@@ -1,10 +1,10 @@
-class Widget {
+export class Widget {
     constructor (title, type) {
         this.frame = document.createElement('div');
         this.header = document.createElement('h1');
         this.closeBtn = document.createElement('button');
 
-        setupBaseUI(title, type);
+        this.setupBaseUI(title, type);
     }
 
     render(container) {
@@ -23,17 +23,9 @@ class Widget {
         this.frame.classList.add(type);
         this.header.textContent = title;
         this.header.classList.add('widget-header');
-
-        this.header.addEventListener('dblclick', () => this.editHeader());
         
         this.frame.append(this.header, this.closeBtn);
-        setupCloseBtn();
+        this.setupCloseBtn();
     }
-
-    editHeader() {
-        const tempInput = document.createElement('input');
-    }
-
-
 }
 
