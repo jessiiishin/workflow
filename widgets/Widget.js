@@ -23,9 +23,17 @@ class Widget {
         this.frame.classList.add(type);
         this.header.textContent = title;
         this.header.classList.add('widget-header');
+
+        this.header.addEventListener('dblclick', () => this.editHeader());
         
         this.frame.append(this.header, this.closeBtn);
         setupCloseBtn();
     }
+
+    editHeader() {
+        const tempInput = document.createElement('input');
+    }
+
+
 }
 
