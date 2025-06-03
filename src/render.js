@@ -13,6 +13,9 @@ prepButton(timerBtn);
 prepButton(noteBtn);
 prepButton(todoBtn);
 
+const firstWidget = new TimerWidget();
+firstWidget.render(workspace);
+
 function prepButton(wbutton) {
     wbutton.addEventListener('dragstart', (event) => {
         event.dataTransfer.setData('text/plain', wbutton.textContent);

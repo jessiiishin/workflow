@@ -2,7 +2,7 @@ import { Widget } from './Widget.js';
 
 export class TimerWidget extends Widget {
     constructor () {
-        super('Timer', 'timer-widget');
+        super('timer', 'timer-widget');
         this.remaining = 0;
         this.countdown;
         this.isPaused = false;
@@ -20,6 +20,9 @@ export class TimerWidget extends Widget {
     }
 
     setupInputs() {
+        const inputdiv = document.createElement('div');
+        inputdiv.classList.add('timer-input-group');
+
         this.minInput = document.createElement('input');
         this.secInput = document.createElement('input');
 
@@ -32,10 +35,14 @@ export class TimerWidget extends Widget {
         this.minInput.placeholder = 'minutes';
         this.secInput.placeholder = 'seconds';
         
-        this.frame.append(this.minInput, this.secInput);
+        inputdiv.append(this.minInput, this.secInput);
+        this.frame.appendChild(inputdiv);
     }
 
     setupButtons() {
+        const buttondiv = document.createElement('div');
+        buttondiv.classList.add('timer-button-group');
+
         this.startBtn = document.createElement('button');
         this.pauseBtn = document.createElement('button');
         this.stopBtn = document.createElement('button');
@@ -44,6 +51,10 @@ export class TimerWidget extends Widget {
         this.pauseBtn.textContent = 'pause';
         this.stopBtn.textContent = 'stop';
 
+        this.startBtn.classList.add('timer-btn');
+        this.pauseBtn.classList.add('timer-btn');
+        this.stopBtn.classList.add('timer-btn');
+
         this.startBtn.addEventListener('click', () => this.start());
         this.pauseBtn.addEventListener('click', () => this.pause());
         this.stopBtn.addEventListener('click', () => this.stop());
@@ -51,7 +62,8 @@ export class TimerWidget extends Widget {
         this.pauseBtn.disabled = true;
         this.stopBtn.disabled = true;
 
-        this.frame.append(this.startBtn, this.pauseBtn, this.stopBtn);
+        buttondiv.append(this.startBtn, this.pauseBtn, this.stopBtn);
+        this.frame.appendChild(buttondiv);
     }
 
     getTotalSeconds() {

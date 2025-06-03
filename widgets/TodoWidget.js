@@ -12,6 +12,10 @@ export class TodoWidget extends Widget {
         this.doneList = document.createElement('ul');
         this.input = document.createElement('input');
 
+        this.taskList.classList.add('todo-task-list');
+        this.doneList.classList.add('todo-task-list');
+        this.input.classList.add('todo-input');
+
         this.input.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 this.addNewTask(this.input.value);
@@ -26,6 +30,7 @@ export class TodoWidget extends Widget {
         const newTask = document.createElement('li');
         const textSpan = document.createElement('span');
         textSpan.textContent = taskText;
+        textSpan.classList.add('todo-text');
 
         const checkbox = this.createCheckBox(newTask);
         checkbox.checked = isDone;
@@ -54,6 +59,7 @@ export class TodoWidget extends Widget {
     createCheckBox(task) {
         const checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
+        checkbox.classList.add('todo-checkbox');
 
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
@@ -72,6 +78,7 @@ export class TodoWidget extends Widget {
      */
     createDelBtn() {
         const delBtn = document.createElement('button');
+        delBtn.classList.add('todo-delete-button');
         delBtn.textContent = 'x';
         delBtn.addEventListener('click', (event) => {
             event.target.parentElement.remove();
@@ -93,6 +100,7 @@ export class TodoWidget extends Widget {
         task.removeChild(textSpan);
         task.insertBefore(repInput, task.firstChild.nextSibling);
 
+        repInput.classList.add('todo-edit-task');
         repInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 this.replaceInputWithText(textSpan, task, repInput);
@@ -106,6 +114,7 @@ export class TodoWidget extends Widget {
         });
 
         repInput.focus();
+        repInput.select();
     }
 
     /**
@@ -117,6 +126,7 @@ export class TodoWidget extends Widget {
      */
     replaceInputWithText(textSpan, newTask, repInput) {
         textSpan.textContent = repInput.value;
+        textSpan.classList.add('todo-text');
         newTask.removeChild(repInput);
         newTask.insertBefore(textSpan, newTask.firstChild.nextSibling);
     }
@@ -126,6 +136,7 @@ export class TodoWidget extends Widget {
      * @param {li} doneTask 
      */
     markAsComplete(doneTask) {
+        doneTask.firstChild.nextSibling.classList.add('task-done');
         this.taskList.removeChild(doneTask);
         this.doneList.appendChild(doneTask);
 
@@ -137,6 +148,7 @@ export class TodoWidget extends Widget {
      * @param {li} undoneTask 
      */
     markAsNotComplete(undoneTask) {
+        doneTask.firstChild.nextSibling.classList.remove('task-done');
         this.doneList.removeChild(undoneTask);
         this.taskList.appendChild(undoneTask);
 

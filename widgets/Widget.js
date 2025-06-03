@@ -1,7 +1,7 @@
 export class Widget {
     constructor (title, type) {
         this.frame = document.createElement('div');
-        this.header = document.createElement('h3');
+        this.header = document.createElement('h2');
         this.closeBtn = document.createElement('button');
         
         this.setupBaseUI(title, type);
