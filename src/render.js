@@ -17,6 +17,10 @@ function prepButton(wbutton) {
     wbutton.addEventListener('dragstart', (event) => {
         event.dataTransfer.setData('text/plain', wbutton.textContent);
     });
+
+    wbutton.addEventListener('click', () => {
+        decideWidget(wbutton.textContent, '0px', '0px');
+    });
 }
 
 workspace.addEventListener('dragover', (event) => {
@@ -26,7 +30,20 @@ workspace.addEventListener('dragover', (event) => {
 workspace.addEventListener('drop', (event) => {
     const rect = workspace.getBoundingClientRect();
     const type = event.dataTransfer.getData('text/plain');
-    
+    const x = (event.clientX - rect.left);
+    const y = (event.clientY - rect.top);
+
+    const clampedX = Math.max(0, 
+            Math.min(x, rect.width - 245)
+    );
+    const clampedY = Math.max(0,
+            Math.min(y, rect.height - 245)
+    );
+
+    decideWidget(type, clampedX + 'px', clampedY + 'px');
+});
+
+function decideWidget(type, x, y) {
     let newWidget;
 
     switch (type) {
@@ -45,8 +62,8 @@ workspace.addEventListener('drop', (event) => {
 
     const frame = newWidget.frame;
 
-    frame.style.left = (event.clientX - rect.left) + 'px';
-    frame.style.top = (event.clientY - rect.top) + 'px';
+    frame.style.left = x;
+    frame.style.top = y;
 
     newWidget.render(workspace);
-});
+}

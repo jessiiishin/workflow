@@ -12,6 +12,7 @@ export class TimerWidget extends Widget {
 
     setupTimerUI() {
         this.timerDisplay = document.createElement('div');
+        this.timerDisplay.id = 'timer-display'
         this.timerDisplay.textContent = '00:00';
         this.frame.appendChild(this.timerDisplay);
         this.setupInputs();
@@ -21,6 +22,9 @@ export class TimerWidget extends Widget {
     setupInputs() {
         this.minInput = document.createElement('input');
         this.secInput = document.createElement('input');
+
+        this.minInput.classList.add('timer-input');
+        this.secInput.classList.add('timer-input');
 
         this.minInput.type = 'number';
         this.secInput.type = 'number';

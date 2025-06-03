@@ -1,3 +1,11 @@
+:root {
+  --beige: #fffdf6,
+  --brown: #c49a6c,
+  --darkbrown: #8b5e3c,
+  --green: #b6cf8c,
+  --pink: #e88faa;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
@@ -15,10 +23,36 @@ body {
 
 .widget {
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   background: #f0f0f0;
   border: 1px solid #aaa;
-  padding: 10px;
+  padding: 20px;
 }
 
+.widget-header {
+  cursor: grab;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: top;
+  text-align: center;
+}
+
+.widget-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.w-close-btn {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 0px;
+  cursor: pointer;
+}
+
+#timer-display {
+  border: 1px solid #713d10;
+  font-size: 20px;
+  text-align: center;
+}
