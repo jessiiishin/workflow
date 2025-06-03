@@ -2,16 +2,20 @@ import { TimerWidget } from '../widgets/TimerWidget.js';
 import { TodoWidget } from '../widgets/TodoWidget.js';
 import { NoteWidget } from '../widgets/NoteWidget.js';
 
+// workspace
+const workspace = document.getElementById('workspace');
+
 // buttons
 const timerBtn = document.getElementById("timerBtn");
 const noteBtn = document.getElementById("noteBtn");
 const todoBtn = document.getElementById("todoBtn");
-
-const workspace = document.getElementById('workspace');
+const clearBtn = document.getElementById('clearBtn');
 
 prepButton(timerBtn);
 prepButton(noteBtn);
 prepButton(todoBtn);
+
+clearBtn.addEventListener('click', () => clearWorkspace());
 
 const firstWidget = new TimerWidget();
 firstWidget.render(workspace);
@@ -72,5 +76,8 @@ function decideWidget(type, x, y) {
 }
 
 function clearWorkspace() {
-    
+    const children = workspace.children;
+    [...children].forEach((child) => {
+        workspace.removeChild(child);
+    })
 }

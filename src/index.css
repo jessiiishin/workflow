@@ -58,6 +58,7 @@ body {
   border: none;
   outline: none;
   background-color: transparent;
+  color: var(--darkbrown);
   font-size: 1.5rem;
   font-style: bold;
   font-weight: bold;
@@ -144,8 +145,8 @@ button.timer-btn:disabled {
 
 .todo-task-list {
   list-style-type: none;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   padding: 0px;
 }
 
@@ -165,6 +166,11 @@ button.timer-btn:disabled {
 
 input.todo-input:focus {
   outline: none;
+}
+
+.todo-input::placeholder {
+  font-style: italic;
+  color: var(--brown);
 }
 
 .todo-checkbox {

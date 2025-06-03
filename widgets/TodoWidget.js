@@ -4,7 +4,7 @@ export class TodoWidget extends Widget {
     constructor () {
         super('todo list', 'todo-widget');
         this.setupTodoUI();
-        this.loadTasks();
+        // this.loadTasks();
     }
 
     setupTodoUI() {
@@ -16,10 +16,13 @@ export class TodoWidget extends Widget {
         this.doneList.classList.add('todo-task-list');
         this.input.classList.add('todo-input');
 
+        this.input.placeholder = 'write a task...'
         this.input.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 this.addNewTask(this.input.value);
+                this.taskList.removeChild(this.input);
                 this.input.value = '';
+                this.taskList.appendChild(this.input);
             }
         });
 
@@ -37,7 +40,7 @@ export class TodoWidget extends Widget {
         const checkbox = this.createCheckBox(newTask);
         checkbox.checked = isDone;
         newTask.appendChild(checkbox);
-        
+
         newTask.appendChild(textSpan);
         newTask.addEventListener('dblclick', () => this.editTask(newTask, textSpan));
         
@@ -51,7 +54,11 @@ export class TodoWidget extends Widget {
             this.taskList.appendChild(newTask);
         }
 
-        this.saveTasks();
+        this.taskList.removeChild(this.input);
+        this.input.value = '';
+        this.taskList.appendChild(this.input);
+
+        // this.saveTasks();
     }
 
     /**
@@ -85,7 +92,7 @@ export class TodoWidget extends Widget {
         delBtn.textContent = 'x';
         delBtn.addEventListener('click', (event) => {
             event.target.parentElement.remove();
-            this.saveTasks();
+            // this.saveTasks();
         });
 
         return delBtn;
@@ -107,13 +114,13 @@ export class TodoWidget extends Widget {
         repInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 this.replaceInputWithText(textSpan, task, repInput);
-                this.saveTasks();
+                // this.saveTasks();
             }
         });
 
         repInput.addEventListener('blur', () => {
             this.replaceInputWithText(textSpan, task, repInput);
-            this.saveTasks();
+            // this.saveTasks();
         });
 
         repInput.focus();
@@ -143,7 +150,7 @@ export class TodoWidget extends Widget {
         this.taskList.removeChild(doneTask);
         this.doneList.appendChild(doneTask);
 
-        this.saveTasks();
+        // this.saveTasks();
     }
 
     /**
@@ -155,7 +162,7 @@ export class TodoWidget extends Widget {
         this.doneList.removeChild(undoneTask);
         this.taskList.appendChild(undoneTask);
 
-        this.saveTasks();
+        // this.saveTasks();
     }
 
     /**
