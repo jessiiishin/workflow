@@ -70,3 +70,7 @@ function decideWidget(type, x, y) {
 
     newWidget.render(workspace);
 }
+
+function clearWorkspace() {
+    
+}

@@ -23,7 +23,9 @@ export class TodoWidget extends Widget {
             }
         });
 
-        this.frame.append(this.taskList, this.input, this.doneList);
+        this.taskList.appendChild(this.input);
+
+        this.frame.append(this.taskList, this.doneList);
     }
 
     addNewTask(taskText, isDone = false) {
@@ -35,7 +37,7 @@ export class TodoWidget extends Widget {
         const checkbox = this.createCheckBox(newTask);
         checkbox.checked = isDone;
         newTask.appendChild(checkbox);
-
+        
         newTask.appendChild(textSpan);
         newTask.addEventListener('dblclick', () => this.editTask(newTask, textSpan));
         
@@ -44,6 +46,7 @@ export class TodoWidget extends Widget {
 
         if (isDone) {
             this.doneList.appendChild(newTask);
+            newTask.firstChild.nextSibling.classList.add('task-done');
         } else {
             this.taskList.appendChild(newTask);
         }
