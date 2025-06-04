@@ -3,9 +3,10 @@
   --brown: #c49a6c;
   --darkbrown: #8b5e3c;
   --lightbrown: #ffebd6;
+  --lightgreen: #f2ffda;
   --green: #b6cf8c;
   --pink: #e88faa;
-  --lightpink: #ffc5d6;
+  --lightpink: #ffcbda;
 }
 
 body {
@@ -13,15 +14,85 @@ body {
     Arial, sans-serif;
   margin: auto;
   max-width: 38rem;
-  padding: 2rem;
+  padding: 0px;
+}
+
+#main-title {
+  color: var(--darkbrown);
+}
+
+#workspace-container {
+  margin-top: 3rem;
+  padding: 0px;
+  width: 100%;
+  overflow: none;
 }
 
 #workspace {
   position: relative;
-  width: 100%;
-  height: 500px;
+  width: 46rem;
+  height: 38rem;
   background-color: var(--green);
   border: 2px solid var(--brown);
+  border-radius: 1.12rem;
+  margin: 0px;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6rem;
+  height: 100vh;
+  margin-right: 2rem;
+
+  background-color: var(--beige);
+  border-right: 1px solid var(--brown);
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#sidebar-header {
+  color: var(--darkbrown);
+}
+
+#sidebar-button-group {
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+}
+
+.widget-btn {
+  color: var(--darkbrown);
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1rem;
+  border: 1px solid var(--green);
+  background-color: var(--lightgreen);
+}
+
+button.widget-btn:active {
+  background-color: var(--green);
+  color: var(--beige);
+}
+
+.clear-btn {
+  position: fixed;
+  width: 6rem;
+  bottom: 2rem;
+
+  background-color: var(--lightpink);
+  color: var(--darkbrown);
+  border: 1px solid var(--pink);
+  border-radius: 1rem;
+}
+
+button.clear-btn:active {
+  background-color: var(--pink);
+  color: var(--beige);
 }
 
 .widget {

@@ -1,19 +1,24 @@
 import { Widget } from './Widget.js';
 
 export class TimerWidget extends Widget {
-    constructor () {
-        super('timer', 'timer-widget');
-        this.remaining = 0;
+    constructor (savedData = {}) {
+        super('timer', 'timer');
+        
+        if (savedData.remaining !== null) {
+            this.remaining = savedData.remaining;
+        } else {
+            this.remaining = 0;
+        }
         this.countdown;
         this.isPaused = false;
 
-        this.setupTimerUI();
+        this.setupTimerUI(savedData.display);
     }
 
-    setupTimerUI() {
+    setupTimerUI(display = '00:00') {
         this.timerDisplay = document.createElement('div');
         this.timerDisplay.id = 'timer-display'
-        this.timerDisplay.textContent = '00:00';
+        this.timerDisplay.textContent = display;
         this.frame.appendChild(this.timerDisplay);
         this.setupInputs();
         this.setupButtons();
@@ -147,6 +152,21 @@ export class TimerWidget extends Widget {
         } else {
             clearInterval(this.countdown);
             alert("timer is up!");
+        }
+    }
+
+    serialize() {
+        return {
+            type: this.type,
+            title: this.header.textContent,
+            position: {
+                left: this.frame.style.left,
+                top: this.frame.style.top
+            },
+            data: {
+                remaining: this.remaining,
+                display: this.timerDisplay.textContent
+            }
         }
     }
 }

@@ -3,17 +3,18 @@ export class Widget {
         this.frame = document.createElement('div');
         this.header = document.createElement('h2');
         this.closeBtn = document.createElement('button');
+        this.type = type;
         
-        this.setupBaseUI(title, type);
+        this.setupBaseUI(title);
     }
 
     render(container) {
         container.appendChild(this.frame);
+        this.frame.instance = this;
     }
 
-    setupBaseUI(title, type) {
+    setupBaseUI(title) {
         this.frame.classList.add('widget');
-        this.frame.classList.add(type);
 
         this.header.textContent = title;
         this.header.classList.add('widget-header');
@@ -87,10 +88,10 @@ export class Widget {
         const newY = mouseY - this.offsetY;
 
         const clampedX = Math.max(0, 
-            Math.min(newX, wspaceRect.width - this.frame.offsetWidth)
+            Math.min(newX, wspaceRect.width - this.frame.offsetWidth - 4)
         );
         const clampedY = Math.max(0,
-            Math.min(newY, wspaceRect.height - this.frame.offsetHeight)
+            Math.min(newY, wspaceRect.height - this.frame.offsetHeight - 4)
         );
 
         this.frame.style.left = clampedX + 'px';
@@ -103,5 +104,12 @@ export class Widget {
         this.header.classList.remove('widget-dragging');
     }
 
+    deserialize() {
+        throw new Error('deserialize() needs to be implemented in subclass');
+    }
+
+    serialize() {
+        throw new Error('serialize() needs to be implemented in subclass');
+    }
 }
 

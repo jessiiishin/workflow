@@ -1,10 +1,10 @@
 import { Widget } from './Widget.js';
 
 export class TodoWidget extends Widget {
-    constructor () {
-        super('todo list', 'todo-widget');
+    constructor (savedData = {}) {
+        super('todo list', 'todo list');
         this.setupTodoUI();
-        // this.loadTasks();
+        this.loadTasks(savedData.tasklist);
     }
 
     setupTodoUI() {
@@ -57,8 +57,6 @@ export class TodoWidget extends Widget {
         this.taskList.removeChild(this.input);
         this.input.value = '';
         this.taskList.appendChild(this.input);
-
-        // this.saveTasks();
     }
 
     /**
@@ -92,7 +90,6 @@ export class TodoWidget extends Widget {
         delBtn.textContent = 'x';
         delBtn.addEventListener('click', (event) => {
             event.target.parentElement.remove();
-            // this.saveTasks();
         });
 
         return delBtn;
@@ -114,13 +111,12 @@ export class TodoWidget extends Widget {
         repInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 this.replaceInputWithText(textSpan, task, repInput);
-                // this.saveTasks();
+
             }
         });
 
         repInput.addEventListener('blur', () => {
             this.replaceInputWithText(textSpan, task, repInput);
-            // this.saveTasks();
         });
 
         repInput.focus();
@@ -149,8 +145,6 @@ export class TodoWidget extends Widget {
         doneTask.firstChild.nextSibling.classList.add('task-done');
         this.taskList.removeChild(doneTask);
         this.doneList.appendChild(doneTask);
-
-        // this.saveTasks();
     }
 
     /**
@@ -162,13 +156,9 @@ export class TodoWidget extends Widget {
         this.doneList.removeChild(undoneTask);
         this.taskList.appendChild(undoneTask);
 
-        // this.saveTasks();
     }
 
-    /**
-     * Saves the current list of tasks in local file
-     */
-    saveTasks() {
+    tasksToArray() {
         const taskArr = [];
 
         [...this.taskList.children].forEach((task) => {
@@ -186,18 +176,33 @@ export class TodoWidget extends Widget {
                 done: task.firstChild.checked
             });
         });
-
-        localStorage.setItem('tasklist', JSON.stringify(taskArr));
+        
+        return taskArr;
     }
 
     /**
-     * Loads locally saved tasks
+     * loads tasks from saved json
      */
-    loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('tasklist') || '[]');
-
-        tasks.forEach(task => this.addNewTask(task.text, task.done));
+    loadTasks(savedTasks) {
+        if (savedTasks !== null) {
+            const tasks = JSON.parse(savedTasks || '[]');
+            tasks.forEach(task => this.addNewTask(task.text, task.done));
+        }
     }
 
-    
+    serialize() {
+        const taskArr = this.tasksToArray();
+
+        return {
+            type: this.type,
+            title: this.header.textContent,
+            position: {
+                left: this.frame.style.left,
+                top: this.frame.style.top
+            },
+            data: {
+                tasklist: JSON.stringify(taskArr)
+            }
+        }
+    }
 }
