@@ -3,6 +3,8 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 
+console.log('preload loaded');
+
 contextBridge.exposeInMainWorld('electronAPI', {
   onSaveBeforeQuit: (callback) => ipcRenderer.on('save-before-quit', callback)
 });

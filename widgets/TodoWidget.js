@@ -2,9 +2,13 @@ import { Widget } from './Widget.js';
 
 export class TodoWidget extends Widget {
     constructor (savedData = {}) {
-        super('todo list', 'todo list');
+        super('todo list', 'todo');
         this.setupTodoUI();
         this.loadTasks(savedData.tasklist);
+
+        if (savedData.input !== undefined) {
+            this.input.value = savedData.input;
+        }
     }
 
     setupTodoUI() {
@@ -152,7 +156,7 @@ export class TodoWidget extends Widget {
      * @param {li} undoneTask 
      */
     markAsNotComplete(undoneTask) {
-        doneTask.firstChild.nextSibling.classList.remove('task-done');
+        undoneTask.firstChild.nextSibling.classList.remove('task-done');
         this.doneList.removeChild(undoneTask);
         this.taskList.appendChild(undoneTask);
 
@@ -162,7 +166,9 @@ export class TodoWidget extends Widget {
         const taskArr = [];
 
         [...this.taskList.children].forEach((task) => {
+            if (task === this.input) return;
             const span = task.querySelector('span');
+            if (!span) return;
             taskArr.push({
                 text: span.textContent,
                 done: task.firstChild.checked
@@ -170,7 +176,9 @@ export class TodoWidget extends Widget {
         });
         
         [...this.doneList.children].forEach((task) => {
+            if (task === this.input) return;
             const span = task.querySelector('span');
+            if (!span) return;
             taskArr.push({
                 text: span.textContent,
                 done: task.firstChild.checked
@@ -184,9 +192,8 @@ export class TodoWidget extends Widget {
      * loads tasks from saved json
      */
     loadTasks(savedTasks) {
-        if (savedTasks !== null) {
-            const tasks = JSON.parse(savedTasks || '[]');
-            tasks.forEach(task => this.addNewTask(task.text, task.done));
+        if (Array.isArray(savedTasks)) {
+            savedTasks.forEach(task => this.addNewTask(task.text, task.done));
         }
     }
 
@@ -201,7 +208,8 @@ export class TodoWidget extends Widget {
                 top: this.frame.style.top
             },
             data: {
-                tasklist: JSON.stringify(taskArr)
+                tasklist: taskArr,
+                input: this.input.value
             }
         }
     }

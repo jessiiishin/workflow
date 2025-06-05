@@ -233,6 +233,7 @@ button.timer-btn:disabled {
   background-color: var(--beige);
   border: 1px solid var(--darkbrown);
   border-radius: 0.25rem;
+  color: var(--darkbrown);
 }
 
 input.todo-input:focus {

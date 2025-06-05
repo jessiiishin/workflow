@@ -2,6 +2,8 @@ import { TimerWidget } from '../widgets/TimerWidget.js';
 import { TodoWidget } from '../widgets/TodoWidget.js';
 import { NoteWidget } from '../widgets/NoteWidget.js';
 
+console.log('electronAPI:', window.electronAPI);
+
 window.electronAPI.onSaveBeforeQuit(() => {
     saveWidgets();
 });
@@ -15,6 +17,8 @@ const noteBtn = document.getElementById("noteBtn");
 const todoBtn = document.getElementById("todoBtn");
 const clearBtn = document.getElementById('clearBtn');
 
+const saveBtn = document.getElementById('save');
+
 // setup ui
 setupMainUI();
 
@@ -24,6 +28,7 @@ function setupMainUI() {
     prepButton(todoBtn);
 
     clearBtn.addEventListener('click', () => clearWorkspace());
+    saveBtn.addEventListener('click', () => saveWidgets());
 
     prepWorkspace();
 
@@ -81,6 +86,7 @@ function decideWidget(type, x = '0px', y = '0px', title = '', data) {
             newWidget = new TimerWidget(data);
             break;
         case 'todo':
+            console.log('todolist made');
             newWidget = new TodoWidget(data);
             break;
         case 'note':
@@ -117,6 +123,7 @@ function saveWidgets() {
     widgets.forEach(widget => {
         if (widget.instance && typeof widget.instance.serialize === 'function') {
             widgetData.push(widget.instance.serialize());
+            console.log(widget.instance + 'saved');
         }
     });
 

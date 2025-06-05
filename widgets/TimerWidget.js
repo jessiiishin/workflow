@@ -10,9 +10,13 @@ export class TimerWidget extends Widget {
             this.remaining = 0;
         }
         this.countdown;
-        this.isPaused = false;
+        this.isPaused = savedData.paused;
+        this.isRunning = false;
 
         this.setupTimerUI(savedData.display);
+
+        this.minInput.value = savedData.mininput;
+        this.secInput.value = savedData.secinput;
     }
 
     setupTimerUI(display = '00:00') {
@@ -101,7 +105,6 @@ export class TimerWidget extends Widget {
             clearInterval(this.countdown);
         } else {
             this.update(this.remaining);
-            this.isPaused = false;
         }
 
         this.countdown = setInterval(() => this.tick(), 1000);
@@ -113,6 +116,8 @@ export class TimerWidget extends Widget {
         this.startBtn.disabled = true;
         this.pauseBtn.disabled = false;
         this.stopBtn.disabled = false;
+
+        this.isRunning = true;
     }
 
     pause() {
@@ -125,6 +130,8 @@ export class TimerWidget extends Widget {
         this.startBtn.disabled = false;
         this.pauseBtn.disabled = true;
         this.stopBtn.disabled = false;
+
+        this.isRunning = false;
     }
 
     stop() {
@@ -139,6 +146,8 @@ export class TimerWidget extends Widget {
         this.startBtn.disabled = false;
         this.pauseBtn.disabled = true;
         this.stopBtn.disabled = true;
+
+        this.isRunning = false;
     }
 
     update(time) {
@@ -152,10 +161,12 @@ export class TimerWidget extends Widget {
         } else {
             clearInterval(this.countdown);
             alert("timer is up!");
+            this.stop();
         }
     }
 
     serialize() {
+        if (this.isRunning) this.pause();
         return {
             type: this.type,
             title: this.header.textContent,
@@ -165,7 +176,10 @@ export class TimerWidget extends Widget {
             },
             data: {
                 remaining: this.remaining,
-                display: this.timerDisplay.textContent
+                display: this.timerDisplay.textContent,
+                mininput: this.minInput.value,
+                secinput: this.secInput.value,
+                paused: this.isPaused
             }
         }
     }
