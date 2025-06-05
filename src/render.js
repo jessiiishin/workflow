@@ -2,8 +2,6 @@ import { TimerWidget } from '../widgets/TimerWidget.js';
 import { TodoWidget } from '../widgets/TodoWidget.js';
 import { NoteWidget } from '../widgets/NoteWidget.js';
 
-console.log('electronAPI:', window.electronAPI);
-
 window.electronAPI.onSaveBeforeQuit(() => {
     saveWidgets();
 });
@@ -17,8 +15,6 @@ const noteBtn = document.getElementById("noteBtn");
 const todoBtn = document.getElementById("todoBtn");
 const clearBtn = document.getElementById('clearBtn');
 
-const saveBtn = document.getElementById('save');
-
 // setup ui
 setupMainUI();
 
@@ -28,15 +24,11 @@ function setupMainUI() {
     prepButton(todoBtn);
 
     clearBtn.addEventListener('click', () => clearWorkspace());
-    saveBtn.addEventListener('click', () => saveWidgets());
 
     prepWorkspace();
 
-    loadWidgets();
-    
-    if ([...workspace.children].length === 0) {
-        firstTimeLoad();
-    }
+    const loadedSave = loadWidgets();
+    if (!loadedSave) firstTimeLoad();
 
     saveWidgets();
 }
@@ -86,14 +78,12 @@ function decideWidget(type, x = '0px', y = '0px', title = '', data) {
             newWidget = new TimerWidget(data);
             break;
         case 'todo':
-            console.log('todolist made');
             newWidget = new TodoWidget(data);
             break;
         case 'note':
             newWidget = new NoteWidget(data);
             break;
         default:
-            console.log('invalid or undefined');
             return;
     }
 
@@ -123,7 +113,6 @@ function saveWidgets() {
     widgets.forEach(widget => {
         if (widget.instance && typeof widget.instance.serialize === 'function') {
             widgetData.push(widget.instance.serialize());
-            console.log(widget.instance + 'saved');
         }
     });
 
@@ -132,9 +121,10 @@ function saveWidgets() {
 
 function loadWidgets() {
     const saved = localStorage.getItem('widgets');
-    if (!saved) return;
+    if (!saved) return false;
 
     const widgetData = JSON.parse(saved);
+    if (widgetData.length === 0) return false;
     
     widgetData.forEach(wdata => {
         decideWidget(wdata.type, 
@@ -144,4 +134,6 @@ function loadWidgets() {
             wdata.data
         );
     });
+
+    return true;
 }
