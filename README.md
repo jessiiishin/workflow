@@ -9,13 +9,14 @@ Widgets currently include:
 - Sticky Note
 
 You can:
-- Spawn widgets
-- Clear the whole thing
-- Close the app and restart to see your widgets still well and healthy
+- Spawn widgets (click or drag and drop the buttons on the left menu)
+- Clear the whole thing (bottom left, "clear workspace" button)
+- Close the app and restart to see your widgets still well and healthy (auto save)
 - Use the timer, todo list, or sticky notes
-- Drag the widgets around
-- Rename the widgets
+- Drag the widgets around (grab by the title)
+- Rename the widgets (double click the title)
 
 ----------------------
 
 Built with Electron.js, using HTML/CSS and Javascript.
+Not packaged yet, so run from terminal with npm start.
